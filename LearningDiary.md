@@ -8,6 +8,8 @@ IntelliJ IDE安装
 ```
 http://www.jetbrains.com/idea/download/  
 ```  
+
+---  
 ## 第2章 面向对象的编程概念  
 - ### 对象  
 ***基本属性：`行为`和`状态`***  
@@ -87,4 +89,141 @@ http://www.jetbrains.com/idea/download/
 例如：  
 	- `String`对象包含字符串的状态和行为  
 	- `File`对象创建、删除、检查、修改、比较系统中的文件  
-	- `Socket`对象支持网络套接字的创建和使用
+	- `Socket`对象支持网络套接字的创建和使用  
+
+---  
+## 第3章 语言基础  
+- ### 变量  
+	- `实例变量`（非静态字段）  
+	- `类变量`（静态字段）  
+使用`static`修饰符声明的字段，该变量只存在一个副本。  
+	- `局部变量`  
+	- `参数`  
+
+
+- ### 命名  
+	- 变量名区分大小写，首字母字母开头，不支持空格、美元符($)  
+	- 使用完整单词提高可读性  
+	- 驼峰式命名  
+
+
+- ### 基本数据类型  
+	- `byte`，8位带符号二进制补码整数。  
+	- `short`，16位带符号二进制补码整数。  
+	- `int`，32位带符号二进制补码整数。  
+	- `long`，64位带符号二进制补码整数。  
+	- `float`，32位单精度浮点数。  
+	- `double`，64位双精度浮点数。  
+	- `boolean`，逻辑类型，`true`和`false`两个值。  
+	- `char`，16位Unicode字符。  
+数据中数字之间使用下划线，便于区分  
+
+
+- ### 数组  
+***数组是固定数目的单一数据类型值的容器对象***  
+
+	- 数组声明  
+	```java
+type[] anArrayOfType//type类型的数组，未指定大小
+type anArrayOfType[]//也可以将方括号写在数组名后面
+	```  
+	- 创建使用new  
+	```java
+anArray = new int[10];
+	```  
+	- 快捷方式定义和初始化数组  
+	```java
+int[] anArray = {
+		100, 200, 300
+};
+	```  
+	- 多维数组  
+	```java
+String[][] names = {
+		{"Mr. ", "Mrs. "},
+		{"Smith", "Jones"}
+};	
+	```  
+	- 数组操作  
+System类的arraycopy()方法  
+	```java
+public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
+	```  
+两个Object，src-原数组，dst-目标数组。将原数组从srcPos位置length长度的元素复制到目的数组的destPos位置。  
+
+
+- ### 运算符  
+	- *比较运算符的左值可以为常量*  
+	- `instanceof`用于测试对象是否为类的实例、子类的实例或者特定接口的实例。null不是任何类的实例  
+	- 前置运算符（运算后的结果）和后置运算符（运算前的结果）的区别。  
+
+
+- ### 表达式、语句和块  
+	- `表达式`由变量、运算符和方法调用构造  
+	- `语句`由;（分号）分隔  
+	- `块`是一对花括号之间的语句  
+
+
+- ### 控制流语句  
+ - `if-then`语句，`if-then-else`语句，`while`语句与C语言类似  
+ - `switch`语句，switch块逻辑与C类似，但是判断类型不限于基本类型，如String  
+ - `for`语句  
+ 	- 一般形式：  
+ 	```java
+for(initialization; temination; increment){  
+		statement(s);
+}
+	```  
+
+	- *加强型：*  
+	```java
+class EnhancedForDemo{
+		public static void main(String[] args){
+		int[] numbers = {1,2,3,4,5,6,7,8,9,10};
+		for(int item : numbers){
+			System.out.println(item);
+		}
+}
+	```  
+	- `break`、`continue`、`return`语句  
+	
+---  
+## 第4章 类与对象  
+- ### 类的声明  
+	- `修饰符`：public, private, protected, default  
+	- `类名`:首字母大写  
+	- 如果有超类，在超类名称前加`extends`关键字。如果有接口，在接口前添加`implements`关键字。  
+	- `类体`：花括号之间的部分  
+
+    
+- ### Java中的public class  
+	- 一个Java源文件中，**只能有一个`public`类**。  
+main方法是程序的入口，JVM运行时寻找main方法，执行程序。Java规定文件名必须与public class相同，public class提供了编译的数据接口。  
+	- 若没有public类，每个类编译生成一个class文件，运行时选择一个作为数据来源。  
+
+
+- ### 声明成员变量  
+	- 类中的成员变量，通常称为`字段`  
+	- 方法或代码块中的变量，通常称为`局部变量`  
+	- 方法声明中变量，通常称为`参数`  
+	- **访问修饰符**
+		- public，所有类都可以访问该字段  
+		- private，只有类内部可以访问该字段  
+	- **类型**  
+	- **变量名**  
+
+
+- ### 定义方法  
+	- 命名方法  
+单个动词，小写；多个动词组成，首字母小写，其余驼峰命名。  
+	- 重载方法  
+方法名相同，参数列表不同  
+
+
+- ### 构建构造器  
+	- ***每个类都包含构造器，调用构造器从类中构造对象，声明构造器名称与类名相同***  
+	- 
+
+
+
+
