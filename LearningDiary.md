@@ -19,6 +19,7 @@ http://www.jetbrains.com/idea/download/
 - ### 类  
 ***类是创造个体对象的蓝图***  
 <br>Java中Bicycle类的实现  
+
 	```javascript
 	class Bicycle{
 		int cadence = 0;
@@ -41,6 +42,7 @@ http://www.jetbrains.com/idea/download/
 ***类可以`继承`其他类的状态和行为。***  
 <br>在Java中，每个类只能有一个直接超类(superclass，即父类)。  
 子类创建，使用`extends`方法。  
+
 	```javascript
 	class MountainBike extends Bicycle{
 		//new fields and methods defining
