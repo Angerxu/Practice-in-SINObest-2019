@@ -43,12 +43,13 @@ http://www.jetbrains.com/idea/download/
 ***类可以`继承`其他类的状态和行为。***  
 <br>在Java中，每个类只能有一个直接超类(superclass，即父类)。  
 子类创建，使用`extends`方法。  
-
-	```javascript
-	class MountainBike extends Bicycle{
-		//new fields and methods defining
-	}
+  
+	```java  
+class MountainBike extends Bicycle{  
+	//new fields and methods defining  
+}  
 	```  
+
 - ### 接口  
 *对象通过接口与外界交互，因此，**方法是对象与外界的`接口`。***  
 <br>**绝大多数情况下，接口被定义为一组方法体为空的相关方法的集合**  
@@ -188,6 +189,7 @@ class EnhancedForDemo{
 		}
 }
 	```  
+  
 	- `break`、`continue`、`return`语句  
 	
 ---  
