@@ -11,12 +11,12 @@ http://www.jetbrains.com/idea/download/
 
 ---  
 ## 第2章 面向对象的编程概念  
-- ### 对象  
+### 对象  
 ***基本属性：`行为`和`状态`***  
 <br>软件对象使用`字段`(`field`，又称variable即变量)定义状态，用`方法`(`method`，又称function)函数定义行为  
 隐藏对象内部状态，所有通信通过对象的方法实现的行为，是面向对象编程(`OOP`，Object Oriented Programming)的基本原则，通常称为`数据封装`  
 
-- ### 类  
+### 类  
 ***类是创造个体对象的蓝图***  
 <br>Java中Bicycle类的实现  
   
@@ -39,18 +39,16 @@ http://www.jetbrains.com/idea/download/
 	}  
 	```  
   
-- ### 继承  
+### 继承  
 ***类可以`继承`其他类的状态和行为。***  
 <br>在Java中，每个类只能有一个直接超类(superclass，即父类)。  
 子类创建，使用`extends`方法。  
-  
-	```java  
+   ```java  
 class MountainBike extends Bicycle{  
 	//new fields and methods defining  
 }  
-	```  
-
-- ### 接口  
+  ```  
+### 接口  
 *对象通过接口与外界交互，因此，**方法是对象与外界的`接口`。***  
 <br>**绝大多数情况下，接口被定义为一组方法体为空的相关方法的集合**  
 	```javascript
@@ -87,7 +85,7 @@ class MountainBike extends Bicycle{
 通过实现接口，类可以更形式化地定义行为。  
 **如果类声明实现一个接口，那么接口中定义的所有方法都必须出现在该类中，否则编译不通过。**  
 
-- ### 包  
+### 包  
 ***包是相关类和接口的命名空间***  
 <br>Java平台提供了庞大的类库用于开发应用程序。该类库通常称为`应用程序接口`(API，Application Programming Interface)。  
 例如：  
