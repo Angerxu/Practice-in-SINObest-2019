@@ -29,6 +29,6 @@ class Point {
     public void movePoint(Point point, int newX, int newY) {
         point.setX(newX);
         point.setY(newY);
-        point=new Point();//无实参的构造函数，函数结束后不对实参产生影响
+        point = new Point();//无实参的构造函数，函数结束后不对实参产生影响
     }
 }
