@@ -19,25 +19,26 @@ http://www.jetbrains.com/idea/download/
 - ### 类  
 ***类是创造个体对象的蓝图***  
 <br>Java中Bicycle类的实现  
-
-	```javascript
-	class Bicycle{
-		int cadence = 0;
-		int speed = 0;
-		int gear = 1;
-		void changeCadence(int newValue){
-			cadence = newValue;
-		}
-	
-		void changeGear(int newValue){
-			gear = newValue;
-		}
-
-		void changeSpeed(int newValue){
-			speed = newValue;
-		}
-	}
+  
+	```javascript  
+	class Bicycle{  
+		int cadence = 0;  
+		int speed = 0;  
+		int gear = 1;  
+		void changeCadence(int newValue){  
+			cadence = newValue;  
+		}  
+	  
+		void changeGear(int newValue){  
+			gear = newValue;  
+		}  
+  
+		void changeSpeed(int newValue){  
+			speed = newValue;  
+		}  
+	}  
 	```  
+  
 - ### 继承  
 ***类可以`继承`其他类的状态和行为。***  
 <br>在Java中，每个类只能有一个直接超类(superclass，即父类)。  
