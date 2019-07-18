@@ -352,12 +352,12 @@ public class Rectangle {
 private修饰符指定成员只能在类内部访问。  
 protected修饰符指定成员可以在包内部访问（与包级私有一样），也可以由该类在其他包的子类访问。  
 
-修饰符|类|包|子类|所有环境
+修饰符 | 类 | 包 | 子类 | 所有环境
 ---|---|---|---|---
-Public|Y|Y|Y|Y
-Protected|Y|Y|Y|N
-无修饰符|Y|Y|N|N
-Private|Y|N|N|N  
+Public | Y | Y | Y | Y
+Protected | Y | Y | Y | N
+无修饰符 | Y | Y | N | N
+Private | Y | N | N | N  
 
 > 对各自的成员使用最为严格的访问级别。除非有足够的理由，否则都用private。  
 除了常量，尽量避免用public字段。使用public容易导致实现特殊化，并限制代码的灵活性。  
@@ -483,7 +483,20 @@ Arrays.sort(rosterAsArray,
     (a, b) -> Person.compareByAge(a, b)
 );
   ```  
-**匿名类相当于用`() -> {}`代替了整个匿名类**  
+方法引用的种类  
+方法引用有4种。  
+
+种类 | 实例  
+--- | ---  
+静态方法引用 | ContainingClass::staticMethodName  
+特定引用的实例化方法引用 | containingObject::instanceMethodName  
+特定类型任意对象的实例化方法引用 | ContainingType::methodName  
+构造器引用 | ClassName::new  
+
+
+
+
+**Lambda表达式相当于用`() -> {}`代替了整个匿名类**  
 > Lambda只支持函数式接口，即只有一个抽象方法的接口。  
 > Lambda 表达式中的参数类型都是由编译器推断得出的。 Lambda 表达式中无需指定类型，程序依然 以编译，这是因为javac根据程序的上下文，在后台推断出了参数的类型。Lambda表达式的类型依赖上下文环境，是由编译器推断出来的。这就是所谓的 “类型推断”。  
 
@@ -494,4 +507,47 @@ List testList = Arrays.asList("Lambda", "Interface", "Stream API");
 testList.forEach(n -> System.out.println(n));
    ```  
 调用List的forEach方法，迭代List中的对象加入Lambda表达式对遍历对象输出。  
+
+**何时使用嵌套类、局部类、匿名类和Lambda表达式**  
+·局部类。创造一个类的多个实例、访问其构造器或引入新的类型。  
+·匿名类。声明字段或其他方法时使用匿名类。  
+·Lambda表达式。  
+```
+封装要传送给其他代码的单元行为。
+需要功能接口的简单实例或不需要构造器、命名类型、字段或其他方法。
+```  
+
+·嵌套类。如果需求和局部类相似，想让类型更可靠，不需要访问局部变量方法参数，则使用嵌套类。如果要访问所属实例的非共有字段和方法，则可以使用非静态嵌套类（或内部类）；反之，使用静态嵌套类。  
+
+### 枚举类型  
+`枚举类型`是允许变量为一组预定义常量的特殊的数据类型。Java使用`enum`关键字定义枚举类型。例如星期的枚举类型定义如下：  
+  ```java
+public enum Day {
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY, 
+    THURSDAY, FRIDAY, SATURDAY
+}  
+  ```  
+Java的enum定义了一个`类`，枚举类型的类体可以包含方法和其他字段。例如有一个静态值方法(values())，它返回一个数组，该数组由枚举的所有值按声明顺序组成。该方法通常与`for-each`构造一起使用以迭代枚举类型的所有值。  
+> 所有枚举类型都隐式继承java.lang.Enum。因为一个类只能继承一个父类，Java不支持状态的多重继承，所以枚举类型不能继承其他任何类。  
+
+  ```java
+for （Planet p : Planet.values()) {
+    System.out.printf("Your weight on %s is %f%n", 
+                      p, p.surfaceWeight(mass));
+}
+  ```  
+
+对于一个Planet类，同时声明其质量和半径。创建这些常量时，会将这些值传给构造器。Java要求在声明字段或方法之前，首先定义这些常量。有字段和方法时，枚举常量也要以`分号`结束。  
+  ```java
+public enum Planet {
+    EARTH(5.976e+24, 6.37814e6);
+    private final double mass;
+    private final double radius;
+    Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+}
+    ...
+  ```  
 
