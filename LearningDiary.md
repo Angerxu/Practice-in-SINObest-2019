@@ -493,10 +493,7 @@ Arrays.sort(rosterAsArray,
 特定类型任意对象的实例化方法引用 | ContainingType::methodName  
 构造器引用 | ClassName::new  
 
-
-
-
-**Lambda表达式相当于用`() -> {}`代替了整个匿名类**  
+<br>**Lambda表达式相当于用`() -> {}`代替了整个匿名类**  
 > Lambda只支持函数式接口，即只有一个抽象方法的接口。  
 > Lambda 表达式中的参数类型都是由编译器推断得出的。 Lambda 表达式中无需指定类型，程序依然 以编译，这是因为javac根据程序的上下文，在后台推断出了参数的类型。Lambda表达式的类型依赖上下文环境，是由编译器推断出来的。这就是所谓的 “类型推断”。  
 
@@ -508,7 +505,7 @@ testList.forEach(n -> System.out.println(n));
    ```  
 调用List的forEach方法，迭代List中的对象加入Lambda表达式对遍历对象输出。  
 
-**何时使用嵌套类、局部类、匿名类和Lambda表达式**  
+<br>**何时使用嵌套类、局部类、匿名类和Lambda表达式**  
 ·局部类。创造一个类的多个实例、访问其构造器或引入新的类型。  
 ·匿名类。声明字段或其他方法时使用匿名类。  
 ·Lambda表达式。  
@@ -550,4 +547,137 @@ public enum Planet {
 }
     ...
   ```  
+## 第5章 注解  
+> `注解`(annotation)，是一种元数据形式，它提供程序数据，但不是程序本身的组成部分。注解不会直接影响它们所注解的代码行为。注解有很多用处，包括：  
+·为编译器提供信息。编译器可以使用注解检测错误或抑制警告。  
+·编译时和部署时处理。软件工具可根据注解生成代码、XML文件等。  
+·运行时处理。有些注解可在运行时检查。  
 
+### 注解基础知识  
+**注解的格式**  
+`@`字符之后为注解内容。  
+如下为最简单的注解格式：  
+```
+@Entity
+```  
+
+如果注解没有元素，则可以省略括号。  
+注解可以包含待值的元素（可以命名、也可以不命名）：  
+  ```java
+@Author(
+    name = "Benjamin Franklin", 
+    date = "3/27/2014"
+)
+class MyClass() {...}
+  ```  
+如果只有一个元素，而且元素名为value，则可省略元素名，如下：
+  ```java
+@SuppressWarnings("unchecked")
+void myMethod() {...}
+  ```  
+如果类型相同，则称为`重复注解`。  
+  ```java
+@Author(name = "Jane Doe")
+@Author(name = "John Smith")
+void myMethod() {...}
+  ``` 
+Java SE 8支持重复注解。  
+注解类型可以使Java SE API的java.lang和java.lang.annotation包中定义的类型。也可以自定义类型(Author)。  
+<br>注解的使用场景  
+注解可用于类、字段、方法以及其他程序组成部分的声明。在声明中使用注解时，每个注解都会独立成行。  
+Java SE 8也支持将注解用于类型的使用。  
+·类实例创建表达式：  
+  ```java
+new @Interned MyObject();
+  ```
+·类型捕获：  
+  ```java
+myString = (@NonNull String) str;
+  ```  
+·implements子句：  
+  ```java
+class UnmodifiableList<T> implements
+    @Readonly List<@Readonly T> {...}
+  ```  
+·抛出异常声明：  
+  ```java
+void monitorTemperature() throws
+    @Critical TemperatueException {...}
+   ```  
+这种注解形式称为`类型注解`。  
+<br>**声明注解类型**  
+许多注解可以替代代码的注释。软件开发小组在编写类体时，习惯以重要信息的注释开始，先定义`注释类型`：  
+  ```java
+@interface ClassPreamble {
+    String author();
+    String date();
+    int currentRevision() default 1;
+    String lastModified() default "N/A";
+    String lastModifiedBy() default "N/A";
+    /**Note use of array/
+    String[] reviewers();
+}
+  ```  
+注解类型的定义有点像接口的定义。在注解类型中，关键字`interface`写在@字符之后(@ = "AT")。注解类型其实是`接口`的一种形式。  
+上述注解定义中包含`注解类型元素`声明，有点像方法。这些可用于定义可选的默认值。  
+定义注解类型后，就可以使用该类型进行注解，填入相应的值。  
+  ```java
+@ClassPreamble (
+    author = "John Doe", 
+    date = "3/17/2002/", 
+    currentRevision = 6, 
+    lastModified = "4/12/2004", 
+    lastModifiedBy = "Jane Doe", 
+    reviewers = {"Alice", "Bob", "Cindy"}
+)
+public class Generation3List extends Generation2List {
+    ...
+}
+  ```  
+> 要在`Javadoc`生成的文档中显示@ClassPreamble的信息，必须将@ClassPreamble定义本身用@Documented注解：  
+
+**预定义注解类型**  
+Java语言使用的注解类型  
+java.lang中预定义的注解类型包含@deprecated, @Override, @SuppressWarnings, @SafeVarargs, @FunctionalInterface。  
+<br>1.@Deprecated  
+`@Deprecated`注释表示被标记的元素已被弃用。程序使用带@Deprecated注解的方法、类或字段时，编译器会发出警告。元素被弃用时，应该使用Javadoc的@deprecated标记，Javadoc标记以小写d开头，注释以大写D开头。  
+  ```java
+/**
+ *  @deprecated
+ */ 
+    @Deprecated
+    static void deprecatedMethod() { }
+}
+  ```
+<br>2.@Override  
+`@Override`注释通知编译器该元素覆盖了超类中声明的元素。  
+<br>3.@SuppressWarning  
+`@SuppressWarning`注释通知编译器忽略指定类型的警告。每个编译器警告都属于一个警告类。Java语言规范列出两种警告类：deprecation和unchecked。和泛型之前的遗留代码对接时会报unchecked警告。要忽略多类警告使用下述语法：  
+  ```java
+@SuppressWarnings({"unchecked", "deprecation"})
+  ```  
+<br>4.SafeVarargs  
+应用于方法或构造器时，`@SafeVarargs`注解声明代码不能执行可变参数上潜在不安全的操作。使用该注解类型时，会忽略与可变参数相关的unchecked警告。  
+<br>5.@FunctionalInterface  
+Java SE 8引入`@FunctionalInterface`注解。该注解表示声明时Java语言规范定义的功能接口。  
+<br>**应用于其他注解的注解**  
+应用于其他注解的注解通常称为`元注解`。java.lang.annotation中定义了几个元注解类型：  
+<br>1.@Retation  
+`@Retation`注解指定被标记注解的存储方式：  
+
+```
+·RetentionPolicy.SOURCE——被标记的注解只保留到源码级，会被编译器忽略。  
+·RetentionPolicy.CLASS——被标记的注解在编译时会被编译器识别，但会被Java虚拟机忽略。  
+·RetentionPolicy.RUNTIME——被标记的注解会被Java虚拟机识别，因此可用于运行时环境。
+```   
+<br>2.@Documented  
+`@Documented`注解表示只要它指定的注解的元素都应该用Javadoc工具文档化。  
+<br>3.@Target  
+`@Target`注解限制了其注解的注解可用于哪些Java元素。  
+<br>4.@Inherited  
+`@Inherited`注解表示注解类型可从超类继承。该注解只用于类声明。  
+<br>5.@Repeatable  
+Java SE 8引入`@Repeatable`注解。注解的注解可多次用于同一个声明或类型使用。  
+<br>**重复注解**  
+声明重复注解类型  
+注解类型必须用`@Repeatable`元注解标记。大括号内为@Repeatable元注解的值，是Java编译器创建用于保存重复注解的容器注解类型。  

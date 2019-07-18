@@ -1,6 +1,15 @@
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  Lambda class
+ *  <p>
+ *      Lambda表达式实战及函数式接口方法实现
+ *  </p>
+ *  @author XuAn
+ *
+ * @date 2019/7/18
+ */
 public class Lambda {
     /**interface with only one method*/
     interface LambdaTest {

@@ -4,6 +4,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ *  ParallelStream class
+ *  <p>
+ *      Stream Class实战及并发Stream
+ *  </p>
+ * @author XuAn
+ *
+ * @date 2019/7/18
+ */
 public class ParallelStream {
     private static int size = 1000000;
     public static void testList() {
