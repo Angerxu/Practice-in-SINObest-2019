@@ -2,12 +2,14 @@ public class Constructors {
     private int dataX, dataY;
     private int height, weight;
     static int counter = 0;
-    public Constructors() { // constructors with no parameters
+    public Constructors() {
+        // constructors with no parameters
         this(0, 0, 0, 0);
         System.out.println("call the no-parameters constructors.");
     }
 
-    public Constructors(int height, int weight) { // constructors with two parameters
+    public Constructors(int height, int weight) {
+        // constructors with two parameters
         this(0, 0, height, weight);
         System.out.println("call the two-parameters constructors.");
     }
@@ -32,7 +34,8 @@ public class Constructors {
         classB.printClass();
         Constructors classC = new Constructors(2, 2, 3, 4);
         classC.printClass();
-        Constructors classD = classC; // reference to the same classC
+        // reference to the same classC
+        Constructors classD = classC;
         classD.printClass();
         System.out.println("The number of class is created: " + Constructors.counter
                 + ".");

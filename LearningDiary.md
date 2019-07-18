@@ -413,6 +413,11 @@ class OuterClass {
 局部类是类声明，而匿名类是表达式。也就是说，**匿名类是定义在表达式中的**。  
   ```java
 public class HelloWorldAnonymousClasses {
+    interface HelloWorld {
+        public void greet();
+        public void greetSomeone(String someone);
+}
+s
     HelloWorld englishGreeting = new EnglishGreeting();
 
     HelloWorld frenchGreeting = new HelloWorld() {
@@ -424,18 +429,18 @@ public class HelloWorldAnonymousClasses {
 上述例子在初始化变量`englishGreeting`用到了局部类，`freanchGreeting`使用了匿名类，即使用表达式初始化一个类。  
 (2)匿名类的语法  
 匿名类表达式包含如下内容：  
-`new`运算符。  
-实现的接口名或继承的类名。（HellowWorld()）  
-将参数包含入构造器的括号，和通常的类实例创建表达式类似。  
-类声明体。  
+·`new`运算符。  
+·实现的接口名或继承的类名。（HellowWorld()）  
+·将参数包含入构造器的括号，和通常的类实例创建表达式类似。  
+·类声明体。  
 (3)声明、访问匿名类的成员  
 匿名类可以访问其所属类的成员。  
 匿名类中可以声明如下内容：  
-字段  
-补充方法  
-实例初始化内容  
-局部类  
-**但是不能再匿名类中声明构造器**  
+·字段  
+·补充方法  
+·实例初始化内容  
+·局部类  
+**但是不能在匿名类中声明构造器**  
 
 ### Lambda表达式  
 Lambda表达式的语法：  
@@ -464,7 +469,7 @@ return不是表达式，但是在Lambda表达式中，语句必须写在花括�
 <br>访问所属范围内的局部变量  
 和局部类与匿名类一样，Lambda表达式也能捕获变量；Lambda表达式可以根据词法确定作用范围，这就意味着它们不会继承超类的任意名称，也不会引入新的作用范围。  
 <br>方法引用  
-Lambda表达式可以调用现有方法，使用匿名方法使方法紧凑易读。  
+Lambda表达式可以**调用现有方法**，使用匿名方法使方法紧凑易读。  
   ```java
 Arrays.sort(rosterAsArray, 
     Person a, Person b) -> {
@@ -478,4 +483,15 @@ Arrays.sort(rosterAsArray,
     (a, b) -> Person.compareByAge(a, b)
 );
   ```  
+**匿名类相当于用`() -> {}`代替了整个匿名类**  
+> Lambda只支持函数式接口，即只有一个抽象方法的接口。  
+> Lambda 表达式中的参数类型都是由编译器推断得出的。 Lambda 表达式中无需指定类型，程序依然 以编译，这是因为javac根据程序的上下文，在后台推断出了参数的类型。Lambda表达式的类型依赖上下文环境，是由编译器推断出来的。这就是所谓的 “类型推断”。  
+
+
+使用lambda表达式对列表进行迭代  
+  ```java
+List testList = Arrays.asList("Lambda", "Interface", "Stream API");
+testList.forEach(n -> System.out.println(n));
+   ```  
+调用List的forEach方法，迭代List中的对象加入Lambda表达式对遍历对象输出。  
 
