@@ -178,7 +178,7 @@ for(initialization; temination; increment){
 }
   ```  
 
-  *加强型：*  
+  *加强型(for-each)：*  
   ```java
 class EnhancedForDemo{
 		public static void main(String[] args){
@@ -195,7 +195,7 @@ class EnhancedForDemo{
 ## 第4章 类与对象  
 ### 类的声明  
 > `修饰符`：public, private, protected, default  
-`类名`:首字母大写  
+`类名`:首字母大写，其余字母小写的驼峰命名式  
 如果有超类，在超类名称前加`extends`关键字。如果有接口，在接口前添加`implements`关键字。  
 `类体`：花括号之间的部分  
 
@@ -222,13 +222,13 @@ class EnhancedForDemo{
 命名方法  
 > 单个动词，小写；多个动词组成，首字母小写，其余驼峰命名。  
 
-<br>**必需元素**
-(1)修饰符
-(2)返回类型
-(3)方法名
-(4)圆括号内的参数列表
-(5)异常列表
-(6)花括号内的方法体
+<br>**必需元素**  
+(1)修饰符  
+(2)返回类型  
+(3)方法名  
+(4)圆括号内的参数列表  
+(5)异常列表  
+(6)花括号内的方法体  
 <br>重载方法  
 > 方法名相同，参数列表不同  
 
@@ -320,7 +320,7 @@ Java平台支持创建任意多对象，而且不需要摧毁他们。当JRE确�
 任何声明为void类型的方法都不会返回值。  
 <br>**返回类或接口**  
 当方法使用`类名`作为返回类型时，返回的对象类型必须是该类本身**或其子类**。该技术称为`协变返回类型`，也就是说，返回类型可以是任意子类。  
-<br>**使用this关键字**
+<br>**使用this关键字**  
 `this`关键字是当前对象的引用。在实例方法或构造器内部，可以使用this访问当前对象的所有成员。  
 <br>**联合使用this构造器**  
 从构造器内部使用this关键字可以调用同一个类的其他构造器。通常称这种做法为显式构造器调用。  
@@ -657,7 +657,7 @@ java.lang中预定义的注解类型包含@deprecated, @Override, @SuppressWarni
   ```java
 @SuppressWarnings({"unchecked", "deprecation"})
   ```  
-<br>4.SafeVarargs  
+<br>4.@SafeVarargs  
 应用于方法或构造器时，`@SafeVarargs`注解声明代码不能执行可变参数上潜在不安全的操作。使用该注解类型时，会忽略与可变参数相关的unchecked警告。  
 <br>5.@FunctionalInterface  
 Java SE 8引入`@FunctionalInterface`注解。该注解表示声明时Java语言规范定义的功能接口。  
@@ -825,3 +825,216 @@ getClass()方法不能被覆盖。getClass()方返回Class对象，如类名、�
 `抽象方法`是声明时没有实现的方法（没有方法体）。如果类中包含抽象方法，则类本身必须声明为abstract。  
 当抽象类被继承时，子类往往要实现父类的所有抽象方法。不过不实现所有抽象方法，子类也必须声明为abstract。  
 >  接口所有方法都是`隐式`抽象的。  
+
+## 第7章 泛型  
+> 简而言之，在定义类、接口和方法时，泛型(Generics)能将`类型`(类和接口)作为参数使用。类似于我们更熟悉的在方法声明中使用的一般化参数，类型形式参数提供了对不通过输入重复使用同一段代码的一个途径。区别在于，一般形式化参数的输入是值，而类型形式参数的输入是类型。  
+
+<br>**泛型类型**  
+`泛型类型`是泛型类或者接口，能够参数化类型。  
+一个`泛型类`的定义格式如下：  
+  ```java
+class Name<T1, T2, ..., Tn> {
+    /* ... */
+}
+  ```  
+类后面用"<>"标示出来的是类型形式参数部分，指明`类型形式参数`(也称为类型变量)是T1, T2, ..., Tn。  
+一个Box类的定义如下形式：  
+  ```java
+public class Box<T> {
+    private T t;
+
+    public void set(T t) {
+    this.t = t;
+}
+
+    public T get() {
+    return t;
+}
+  ```  
+一个类型变量可以是用户指定的任何`非基本数据类型`,如类、接口、数组，甚至可以使其他类型变量。  
+<br>类型参数命名约定  
+约定：类型形式参数的名字用单个、大写字母表示。如下列出的是常用的类型形式参数名：  
+·E——元素(Element, 广泛应用于Java collections集合框架)  
+·K——键值(Key)  
+·N——数字(Number)  
+·T——类型(Type)  
+·V——值(value)  
+·S, U, V等——第二、第三、第四类型  
+<br>泛型类型的调用和实例化  
+要在代码中引用Box类，必须执行`泛型类型调用`(generic type invocation)，即用某个具体的值（如整数）代替T：  
+  ```java
+Box<Integer> integerBox;
+  ```  
+泛型类型调用类似于一般方法调用，只是在传递参数方面不同于一般方法，泛型调用中是把`类型实际参数`（这里是整数型Integer）传递给Box类型自身。  
+> 许多开发者会混用`类型形式参数`(type parameter)和`类型实际参数`(type argument)，但这两个术语是不同的。编码时，我们会使用类型实际参数(type argument)来创建一个参数化了的类型(parameterized typed)。所以，Foo<T>中的T是一个类型形式参数，而Foo<String>则是类型实际参数。  
+
+这段代码其实不会创建一个新的Box对象，而只是简单地声明integerBox保有指向"Box<Integer>（整数型的Box）"的引用。  
+泛型类型的调用即通常所说的参数化类型。实例化时，也是使用关键字`new`，只是在类名和圆括号之间要放上<Integer>:  
+  ```java
+Box<Integer> integerBox = new Box<Integer>();
+  ```  
+
+<br>钻石运算符  
+调用泛型类的构造函数时，只要编译器能通过上下文确定或推断出类型实际参数，就可以用类型实际参数的空集("<>")代替类型实际参数，其中：尖括号称为钻石运算符。例如：
+  ```java
+Box<Integer> integerBox = new Box<>();
+  ```  
+<br>多个类型参数  
+泛型类可以有多个参数。如下泛型类OrderedPair实现了泛型接口Pair:  
+  ```java
+public interface Pair<K, V> {
+    public K getKey();
+    public V getValue();
+}
+
+public class OrderedPair<K, V> implements Pair<K, V> {
+    private K key;
+    private V value;
+}
+
+public OrderedPair(K key, V value) {
+    this.key = key;
+    this.value = value;
+}
+
+public K getKey() {
+    return key;
+}
+public V getValue() {
+    return value;
+}
+  ```  
+以下语句创建了两个OrderedPair类实例：  
+  ```java
+Pair<String, Integer> p1 = new OrderedPair<String, Integer>("Even", 8);
+Pair<String, String> p2 =new OrderedPair<String, String>("hello", "world");
+  ```  
+new OrderedPair<String, Integer>把K和V分别实例化为String和Integer。  
+使用钻石符号可以缩减为：  
+  ```java
+Pair<String, Integer> p1 = new OrderedPair<>("Even", 8);
+Pair<String, String> p2 =new OrderedPair<>("hello", "world");
+  ```  
+创建泛型接口和创建泛型类方法相同。  
+<br>参数化类型  
+也可以用参数化类型(如List<String>)代替类型形式参数(如K、V)。  
+  ```java
+OrderedPair<String, Box<Integer>> p = new OrderedPair<>("primes", 
+    new Box<Integer> (...));
+  ```  
+<br>**原生类型**  
+`原生类型`是不带有任何类型参数的泛型类或接口的名字。例如，前面介绍的泛型类Box，创建Box<T>的参数化类型，需要给类型形式参数T赋一个类型实际参数：  
+  ```java
+Box<Integer> intBox = new Box<>();
+  ```  
+若忽略类型实际参数，可以创建Box<T>的原生类型：  
+Box rawBox = new Box();
+<br>如果把一个原生类型赋值给参数化类型，会显示警告。如果用原生类型去调用相应泛型类型的泛型方法，也会显示警告。  
+<br>**泛型方法**  
+泛型方法的语法中，类型形式参数出现在尖括号内，位于该方法返回类型前。对于泛型方法，类型形式参数部分一定位于该**方法返回类型前面**。  
+Util类有一个泛型方法compare，用于比较两个序对(Pair)对象。  
+  ```java
+public class Util {
+    public static <K, V> boolean compare(Pair<K, V> p1, Pair<K, V> p2) {
+        return p1.getKey().equals(p2.geKey()) && 
+               p1.getValue().equals(p2.getValue());
+    }
+}
+  ```  
+<br>受限类型形式参数  
+在参数华类型中，我们有时需要约束可以作为`类型实际参数`使用的类型。例如可能只希望接收数字类型，这就是`受限类型形式参数`所要发挥的作用。  
+声明一个受限类型形式参数，要列出类型形式参数名，然后是关键字`extends`，接下来是该参数的`上界`(如Number)。  
+  ```java
+public class <Box T> {
+    private T t;
+    public void set(T t) {
+        this.t = t;
+    }
+    public T get() {
+        return t;
+    }
+    /* 限定Number类型的上界 */
+    public <U extends Number> void inspect(U u) {
+         System.out.println("T: " + t.getClass().getName());
+         System.out.println("U: " + u.getClass().getName());
+    }
+
+    public static void main(String[] args) {
+        Box<Integer> integerBox = new Box<Integer>();
+        integerBox.set(new Integer(10));
+        integerBox.inspect("some text); // error: String
+    }
+}
+  ```  
+<br>多重限制  
+一个类型形式参数可以有`多重限制`。
+  ```java
+<T extends B1 & B2 & B3>
+  ```  
+**如果类是限制之一，则必须先指定**  
+  ```java
+class A {
+    ...
+}
+
+class D <T extends A & B & C> { 
+    ...
+}
+
+class D <T extends B & A & C> { // compile error
+    ...
+}
+  ```  
+
+<br>无界通配符  
+无界通配符类型用通配符符号(?)给出，例如List<?>，即所谓的"未知类型列表"。无界通配符适用于以下两种情况：  
+·当一个方法可以用Object类提供的功能来实现时，无界通配符是适用的。
+·若代码使用了泛型类中的方法，而这些方法又是不依赖于类型形式参数的，那么无界通配符也是有用的。  
+<br>下界通配符  
+`下界通配符`将未知类型限制为某个指定类型或者该类型的子类型，并用关键字`extends`表示。下界通配符将未知类型限制为某个指定类型或该类型的超类型。下界通配符用"通配符符号(?) + 关键字super + 下界"表示：<? super A>。  
+> 可以为通配符指定上界或下界，但不能两者都指定  
+
+<br>泛型的局限性  
+1.不能用基本数据类型实例化泛型类型  
+创建Pair对象时，不能用基本数据类型代替类型形式参数K或V：  
+  ```java
+Pair<int, char> p =new Pair<>(8, 'a'); // compile error
+  ```  
+只能用非基本数据类型代替类型形式参数K或V：   
+  ```java
+Pair<Intger, Character> p =new Pair<>(8, 'a'); // compile error
+  ```  
+<br>2.不能创建类型参数实例  
+  ```java
+public static <E> void append(List<E> list) {
+    E elem = new E();//compile error
+    list.add(elem);
+}
+  ```  
+一个变通方案是，通过反射创建类型参数的对象：  
+  ```java
+public static <E> void append(List<E> list, Class<E> cls) 
+throws Exception {
+    E elem = cls.newInstance();
+    list.add(elem);
+}
+  ```  
+<br>3.不能声明类型为"类型参数"的静态字段  
+<br>4.对参数化类型不能用类型转换或instanceof运算符  
+由于Java编译器擦除了泛型代码中所有类型参数，所以运行无法验证正在使用泛型类型的是哪个参数化类型。  
+<br>5.不能创建参数化类型数组  
+由于泛型方法擦除，数组元素的多样化的可能性，可能存在ArrayStoreException的RTE  
+<br>6.不能创建、捕获或抛出参数化类型的对象  
+<br>7.每次重载时其形式参数类型都被擦除为相同的原生类型的方法不能重载  
+一个类不能有两个被重载的方法，它们在类型擦除后会有相同的声明：  
+  ```java
+public class Example {
+    public void print(Set<String> strSet) {
+    ...
+    }
+    public void print(Set<Integer> intSet) {
+    ...
+    }
+}
+  ```  
+重载将全部共享相同的类文件表示并生成编译时的错误。  
