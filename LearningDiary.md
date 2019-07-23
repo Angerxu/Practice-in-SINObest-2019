@@ -1056,3 +1056,5 @@ public class Example {
 ...\com\example\graphics\Rectangle.java
   ```  
 ## 第9章 数字和字符串  
+java将基本数据类型对象化，由java.lang中的Number类及其子类实现。  
+Number类中所有子类实现的方法  
