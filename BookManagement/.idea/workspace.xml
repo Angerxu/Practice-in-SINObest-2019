@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3696a7a0-1eae-4f37-8957-c252ac4d3765" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LearningDiary.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../LearningDiary.md" afterDir="false" />
+    <list default="true" id="13b2dbfa-0818-4724-acf2-431137889a37" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BookManagement.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/BookManagement/BookManagement$Student.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/BookManagement/BookManagement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/BookManagement/META-INF/BookManagement.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookManagement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Jul.23/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Jul.19/Class/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Jul.19/Class/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Jul.22/Generics/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Jul.22/Generics/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LearningDiary.md" beforeDir="false" afterPath="$PROJECT_DIR$/../LearningDiary.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,49 +33,61 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Generics.java">
+        <entry file="file://$PROJECT_DIR$/src/BookManagement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+            <state relative-caret-position="315">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Generics.java" />
+        <option value="$PROJECT_DIR$/src/jar.java" />
+        <option value="$PROJECT_DIR$/src/BookManagement.java" />
       </list>
     </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="workOffline" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
       <list>
         <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/uiDesigner.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="240" />
-    <option name="y" value="23" />
-    <option name="width" value="1342" />
-    <option name="height" value="827" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="173" />
+    <option name="y" value="40" />
+    <option name="width" value="1395" />
+    <option name="height" value="813" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -71,26 +97,28 @@
         <subPane>
           <expand>
             <path>
-              <item name="Generics" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Generics" type="462c0819:PsiDirectoryNode" />
+              <item name="BookManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BookManagement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BookManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BookManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="SDKs" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -106,16 +134,21 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Generics" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Generics" />
-      <module name="Generics" />
+    <configuration name="BookManagement" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BookManagement" />
+      <module name="BookManagement" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JarApplication">
+      <option name="JAR_PATH" value="E:/mysql-connector-java-5.1.47.jar" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Generics" />
+        <item itemvalue="Application.BookManagement" />
       </list>
     </recent_temporary>
   </component>
@@ -124,18 +157,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3696a7a0-1eae-4f37-8957-c252ac4d3765" name="Default Changelist" comment="" />
-      <created>1563782967559</created>
+      <changelist id="13b2dbfa-0818-4724-acf2-431137889a37" name="Default Changelist" comment="" />
+      <created>1563865600703</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1563782967559</updated>
+      <updated>1563865600703</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="240" y="23" width="1342" height="827" extended-state="0" />
+    <frame x="173" y="40" width="1395" height="813" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26131046" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25692883" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -144,7 +178,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3299712" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32896653" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -153,22 +187,25 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3299712" />
+      <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.32958803" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Generics.java">
+    <entry file="file://$PROJECT_DIR$/src/BookManagement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+        <state relative-caret-position="315">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -189,7 +226,6 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -212,7 +248,6 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -224,7 +259,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Generics</last-edited>
+          <last-edited>BookManagement</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -246,5 +281,8 @@
         </settings>
       </state>
     </states>
+  </component>
+  <component name="mavenExecuteGoalHistory">
+    <option value="" />
   </component>
 </project>
