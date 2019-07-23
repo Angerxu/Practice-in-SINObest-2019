@@ -16,6 +16,6 @@ Book类，一个基础的类型单位：
   ```
 2. Connection方法  
 java.sql下定义的一个接口，与特定数据库的连接（会话）。在连接上下文中执行 SQL 语句并返回结果。定义如下：  
-   ```java
+  ```java
 public interface Connectionextends Wrapper
-   ```    
+  ```    
