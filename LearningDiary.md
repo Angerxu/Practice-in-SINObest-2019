@@ -1058,3 +1058,50 @@ public class Example {
 ## 第9章 数字和字符串  
 java将基本数据类型对象化，由java.lang中的Number类及其子类实现。  
 Number类中所有子类实现的方法  
+
+## 第11章  流(Stream)、文件(File)和IO  
+### 读取控制台输入  
+Java 的控制台输入由 System.in 完成。  
+为了获得一个绑定到控制台的字符流，你可以把 System.in 包装在一个 BufferedReader 对象中来创建一个字符流。  
+下面是创建 BufferedReader 的基本语法：  
+  ```java
+BufferedReader br = new BufferedReader(new 
+                    InputStreamBuffer(System.in));
+  ```  
+BufferdReader对象创建之后，就可以使用read()方法从控制台读取一个字符，或者使用readline()方法读取字符串。  
+下面的程序示范了用 read() 方法从控制台不断读取字符直到用户输入 "q"。  
+  ```java
+import java.io.*;
+ 
+public class BRRead {
+    public static void main(String args[]) throws IOException {
+        char c;
+        // 使用 System.in 创建 BufferedReader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("输入字符, 按下 'q' 键退出。");
+        // 读取字符
+        do {
+            c = (char) br.read();
+            System.out.println(c);
+        } while (c != 'q');
+    }
+}
+  ```
+从标准输入读取一个字符串需要使用 BufferedReader 的 readLine() 方法。  
+  ```java
+import java.io.*;
+ 
+public class BRReadLines {
+    public static void main(String args[]) throws IOException {
+        // 使用 System.in 创建 BufferedReader
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        System.out.println("Enter lines of text.");
+        System.out.println("Enter 'end' to quit.");
+        do {
+            str = br.readLine();
+            System.out.println(str);
+        } while (!str.equals("end"));
+    }
+}
+  ```
