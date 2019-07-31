@@ -164,7 +164,7 @@ dao包下的BookManagementTest.java代码为项目的测试入口，实例化ser
   ```java
 BookManagementDao serviceDao = DBService.getInstance().getBookManagementDao();
   ```
-项目启动有文字交互及选项菜单：  
+<br>项目启动有文字交互及选项菜单：  
   ```java
 System.out.println("Welcome to Book Management System!");
 System.out.println("==================================");
@@ -174,3 +174,4 @@ System.out.println("3.Enter \"Delete\" to delete a book.");
 System.out.println("4.Enter \"Update\" to delete a book.");
 System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
   ```
+<br>接收输入循环判断体，输入对应字段可以执行相关的CRUD指令或者退出，输入错误提示输入有误并重新输入。  
