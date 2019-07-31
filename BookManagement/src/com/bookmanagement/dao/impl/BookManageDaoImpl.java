@@ -31,6 +31,7 @@ public class BookManageDaoImpl implements BookManagementDao {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             int col = rs.getMetaData().getColumnCount();
+            System.out.println("");
             if (s.equals("*")) {
                 // 通配匹配
                 System.out.println("ID  Name    ISBN     Price");
@@ -42,7 +43,9 @@ public class BookManageDaoImpl implements BookManagementDao {
             while (rs.next()) {
                 for (int i = 1; i <= col; i++) {
                     System.out.print(rs.getString(i) + "\t");
-                    if ((i == 2) && (rs.getString(i).length() < 4)) {
+                    boolean condition = ((i == 2) || (i == 3))
+                            && (rs.getString(i).length() < 4);
+                    if (condition) {
                         System.out.print("\t");
                     }
                 }
@@ -55,13 +58,14 @@ public class BookManageDaoImpl implements BookManagementDao {
             JdbcUtils.free(rs, pstmt, conn);
         }
     }
+
     @Override
     public void insert(Book book) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         int i = 0;
-        try{
+        try {
             conn = JdbcUtils.getConnection();
             String sql = "insert into books (name,isbn,price) values(?,?,?)";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
@@ -75,6 +79,45 @@ public class BookManageDaoImpl implements BookManagementDao {
         } finally {
             JdbcUtils.free(rs, pstmt, conn);
         }
-
     }
+
+    @Override
+    public void delete(String option, String name) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int i = 0;
+        try {
+            conn = JdbcUtils.getConnection();
+            String sql = "delete from books where " + option + "='" + name + "'";
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            i = pstmt.executeUpdate();
+            System.out.println(i + " record has delete.\n");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.free(rs, pstmt, conn);
+        }
+    }
+
+    @Override
+    public void update(String option, String name, String price) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int i = 0;
+        try {
+            conn = JdbcUtils.getConnection();
+            String sql = "update books set price='"+ price + "' where "
+                    + option + "='" + name + "'";
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            i = pstmt.executeUpdate();
+            System.out.println(i + " record has update.\n");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.free(rs, pstmt, conn);
+        }
+    }
+
 }

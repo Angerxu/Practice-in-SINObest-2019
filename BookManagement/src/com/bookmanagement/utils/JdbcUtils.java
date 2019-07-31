@@ -17,7 +17,7 @@ import java.sql.SQLException;
  * @date 2019/7/30
  */
 public class JdbcUtils {
-    private static String driver = "com.mysql.cj.jdbc.Driver";
+    private static String driver = "com.mysql.jdbc.Driver";
     private static String url = "jdbc:mysql://localhost:3306/samp_db?useSSL=false&serverTimezone=UTC";
     private static String username = "root";
     private static String password = "";
@@ -29,7 +29,7 @@ public class JdbcUtils {
 
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new ExceptionInInitializerError(e);
         }
