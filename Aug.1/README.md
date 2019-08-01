@@ -1,7 +1,7 @@
 # 8月1日实习日志  
 *2019年8月1日 星期四*  
 ## 学习内容  
-1.Git commit message 规范  
+1.Git commit message  
 配置commitizen & cz-conventional-changelog。  
   ```
 npm install -g commitizen cz-conventional-changelog
@@ -20,7 +20,7 @@ String name：输入需要查找的书本/ISBN
 功能：
 根据选择书名/ISBN查询书本，返回一个对应查询结果的Book实例对象。
   ```
-**2.修改了几处函数细节 ** 
+**2.修改了几处函数细节**   
 1.BookManagementTest中的欢迎界面和判断输入及业务操作单独封装为两个函数welcome()、service()，提高代码的可阅读性与简洁性。  
 <br>2.判断输入由if-else体更改switch判断体。  
 <br>3.在Dao层执行MySQL语句时抛出异常时提示输入错误。  

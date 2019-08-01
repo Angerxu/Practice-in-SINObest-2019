@@ -31,12 +31,11 @@ public class BookManageDaoImpl implements BookManagementDao {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             int col = rs.getMetaData().getColumnCount();
-            System.out.println("");
             if (s.equals("*")) {
                 // 通配匹配
-                System.out.println("ID  Name    ISBN     Price");
+                System.out.println("\nID  Name    ISBN            Price");
             } else {
-                System.out.println(s);
+                System.out.println("\n" + s);
             }
 
             System.out.println("============================");
@@ -54,6 +53,7 @@ public class BookManageDaoImpl implements BookManagementDao {
             System.out.println("============================\n");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error! Please check your input.");
         } finally {
             JdbcUtils.free(rs, pstmt, conn);
         }
@@ -71,11 +71,12 @@ public class BookManageDaoImpl implements BookManagementDao {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setString(1, book.getName());
             pstmt.setString(2, book.getISBN());
-            pstmt.setString(3, book.getPrice());
+            pstmt.setFloat(3, book.getPrice());
             i = pstmt.executeUpdate();
             System.out.println(i + " record has insert.\n");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error! Please check your input.");
         } finally {
             JdbcUtils.free(rs, pstmt, conn);
         }
@@ -89,35 +90,73 @@ public class BookManageDaoImpl implements BookManagementDao {
         int i = 0;
         try {
             conn = JdbcUtils.getConnection();
-            String sql = "delete from books where " + option + "='" + name + "'";
+            String sql = "delete from books where " + option + "=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt.setString(1, name);
             i = pstmt.executeUpdate();
             System.out.println(i + " record has delete.\n");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error! Please check your input.");
         } finally {
             JdbcUtils.free(rs, pstmt, conn);
         }
     }
 
     @Override
-    public void update(String option, String name, String price) {
+    public void update(String option, String name, Float price) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         int i = 0;
         try {
             conn = JdbcUtils.getConnection();
-            String sql = "update books set price='"+ price + "' where "
-                    + option + "='" + name + "'";
+            String sql = "update books set price=? where "
+                    + option + "=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt.setFloat(1, price);
+            pstmt.setString(2, name);
             i = pstmt.executeUpdate();
             System.out.println(i + " record has update.\n");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error! Please check your input.");
         } finally {
             JdbcUtils.free(rs, pstmt, conn);
         }
     }
 
+    @Override
+    public Book findBook(String option, String name) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Book book = null;
+        try {
+            conn = JdbcUtils.getConnection();
+            String sql = "select id, name, isbn, price from books where " + option +"=?";
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                book = mappingBook(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error! Please check your input.");
+        } finally {
+            JdbcUtils.free(rs, pstmt, conn);
+        }
+
+        return book;
+    }
+
+    private Book mappingBook(ResultSet rs) throws SQLException {
+        Book book = new Book();
+        book.setId(rs.getString("id"));
+        book.setName(rs.getString("name"));
+        book.setISBN(rs.getString("isbn"));
+        book.setPrice(rs.getFloat("price"));
+        return book;
+    }
 }

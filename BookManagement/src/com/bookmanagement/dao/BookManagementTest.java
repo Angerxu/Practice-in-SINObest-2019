@@ -19,81 +19,103 @@ import com.bookmanagement.service.DBService;
 public class BookManagementTest {
 
     public static void main(String[] args) throws IOException {
+        BookManagementTest.service();
+    }
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BookManagementDao serviceDao = DBService.getInstance().getBookManagementDao();
 
-        System.out.println("Welcome to Book Management System!");
+    private static void welcome() {
+        System.out.println("\nWelcome to Book Management System!");
         System.out.println("==================================");
         System.out.println("1.Enter \"Get\" to get information from database.");
         System.out.println("2.Enter \"Insert\" to insert a new book.");
         System.out.println("3.Enter \"Delete\" to delete a book.");
         System.out.println("4.Enter \"Update\" to delete a book.");
+        System.out.println("5.Enter \"Find\" to find a book and return a class entity.");
         System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
+
+    }
+
+    private static void service() throws IOException {
+
+        BookManagementDao serviceDao = DBService.getInstance().getBookManagementDao();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        /*
+        欢迎界面
+         */
+        BookManagementTest.welcome();
         String mainOption = br.readLine();
         /*
-        退出检测
+        输入检测
          */
-        while (!mainOption.toLowerCase().equals("q")
-                && !mainOption.toLowerCase().equals("quit")
-                && !mainOption.toLowerCase().equals("exit")) {
 
-            if (mainOption.toLowerCase().equals("insert")) {
-                // 插入一条记录
-                System.out.println("Enter the name of the book to insert.");
-                String name = br.readLine();
-                System.out.println("Enter the isbn of the book to insert.");
-                String isbn = br.readLine();
-                System.out.println("Enter the price of the book to insert.");
-                String price = br.readLine();
-                Book book = new Book();
-                book.setName(name);
-                book.setISBN(isbn);
-                book.setPrice(price);
-                serviceDao.insert(book);
-            } else if (mainOption.toLowerCase().equals("get")) {
-                // 返回记录
-                System.out.println("Enter the part to search, enter \'*\' to search all.");
-                String s = br.readLine();
-                //get(s);
-                serviceDao.get(s);
-            } else if (mainOption.toLowerCase().equals("delete")) {
+        String q = "q";
+        String exit = "exit";
+        String quit = "quit";
+        while (!(q.equals(mainOption)
+                || (exit.equals(mainOption))
+                || (quit.equals(mainOption)))) {
 
-                System.out.println("Choose the name/isbn of the book to delete.");
-                System.out.println("You may delete by name or isbn.");
-                String option = br.readLine();
-                System.out.println("Enter the name/isbn of the book to delete.");
-                String name = br.readLine();
-                serviceDao.delete(option, name);
-            } else if (mainOption.toLowerCase().equals("update")) {
-                System.out.println("Choose the name/isbn of the book to update.");
-                System.out.println("You may update by name or isbn.");
-                String option = br.readLine();
-                System.out.println("Enter the name/isbn of the book to update.");
-                String name = br.readLine();
-                System.out.println("Enter the price of the book to update.");
-                String price = br.readLine();
-                serviceDao.update(option, name, price);
-            } else {
-                System.out.println("Invalid input, please try again.");
+            switch (mainOption) {
+                case "insert":
+                    // 插入一条记录
+                    System.out.println("Enter the name of the book to insert.");
+                    String name = br.readLine();
+                    System.out.println("Enter the isbn of the book to insert.");
+                    String isbn = br.readLine();
+                    System.out.println("Enter the price of the book to insert.");
+                    Float price = Float.parseFloat(br.readLine());
+                    Book book = new Book();
+                    book.setName(name);
+                    book.setISBN(isbn);
+                    book.setPrice(price);
+                    serviceDao.insert(book);
+                    break;
+                case "get":
+                    // 返回记录
+                    System.out.println("Enter the part to search, enter \'*\' to search all.");
+                    String s = br.readLine();
+                    serviceDao.get(s);
+                    break;
+                case "delete":
+                    // 删除
+                    System.out.println("Choose the name/isbn of the book to delete.");
+                    System.out.println("You may delete by name or isbn.");
+                    String option = br.readLine();
+                    System.out.println("Enter the name/isbn of the book to delete.");
+                    name = br.readLine();
+                    serviceDao.delete(option, name);
+                    break;
+                case "update":
+                    // 更新
+                    System.out.println("Choose the name/isbn of the book to update.");
+                    System.out.println("You may update by name or isbn.");
+                    option = br.readLine();
+                    System.out.println("Enter the name/isbn of the book to update.");
+                    name = br.readLine();
+                    System.out.println("Enter the price of the book to update.");
+                    price = Float.parseFloat(br.readLine());
+                    serviceDao.update(option, name, price);
+                    break;
+                case "find":
+                    // 返回一个查询的Book对象
+                    System.out.println("Choose the name/isbn of the book to find.");
+                    System.out.println("You may update by name or isbn.");
+                    option = br.readLine();
+                    System.out.println("Enter the name/isbn of the book to find.");
+                    name = br.readLine();
+                    book = serviceDao.findBook(option, name);
+                    System.out.println(book.getId() + book.getISBN() + book.getName());
+                    break;
+                default:
+                    System.out.println("Invalid input, please try again.");
+                    break;
+
             }
-            // 循环输入
-            System.out.println("==================================");
-            System.out.println("1.Enter \"Get\" to get information from database.");
-            System.out.println("2.Enter \"Insert\" to insert a new book.");
-            System.out.println("3.Enter \"Delete\" to delete a book.");
-            System.out.println("4.Enter \"Update\" to delete a book.");
-            System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
+            BookManagementTest.welcome();
             mainOption = br.readLine();
-
         }
 
-
-
-        }
-
-
-
+    }
 
 }
 

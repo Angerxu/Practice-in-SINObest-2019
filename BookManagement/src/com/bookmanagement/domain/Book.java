@@ -12,7 +12,7 @@ public class Book {
     private String id;
     private String name;
     private String isbn;
-    private String price;
+    private Float price;
 
 
 
@@ -40,11 +40,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 }

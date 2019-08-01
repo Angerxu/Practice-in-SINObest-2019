@@ -18,7 +18,7 @@
 3.ISBN-国际标准书号  
 4.Price-价格  
   ```  
-数据类型都定义为`String`类型，便于统一的修改和数据库的导入与导出。  
+ID定义为`int unsigned not null auto_increment`，自增量便于管理。Name、ISBN数据类型都定义为`String`类型，Price定义为`Float`类型。  
 <br>方法部分：  
   ```
 Book类的方法，主要功能为得到Book类的私有数据和修改数据。  
@@ -98,22 +98,24 @@ try {
     System.out.println(i + " record has insert.\n");
         pstmt.close();
         conn.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+} catch (SQLException e) {
+    e.printStackTrace();
+    System.out.println("Error! Please check your input.");
+}
   ```  
 <br>3.删除记录  
 定义`delete(String option, String name)`函数，传入的两个字符串，option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。执行sql的delete语句完成删除操作。  
   ```java
 try {
-     conn = JdbcUtils.getConnection();
-     String sql = "delete from books where " 
+    conn = JdbcUtils.getConnection();
+    String sql = "delete from books where " 
         + option + "='" + name + "'";
-     pstmt = (PreparedStatement) conn.prepareStatement(sql);
-     i = pstmt.executeUpdate();
-     System.out.println(i + " record has delete.\n");
+    pstmt = (PreparedStatement)conn.prepareStatement(sql);
+    i = pstmt.executeUpdate();
+    System.out.println(i + " record has delete.\n");
 } catch (SQLException e) {
-     e.printStackTrace();
+    e.printStackTrace();
+    System.out.println("Error! Please check your input.");
 } finally {
      JdbcUtils.free(rs, pstmt, conn);
 }
@@ -122,20 +124,39 @@ try {
 定义`update(String option, String name,String price)`函数，传入三个参数：option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。price代表修改书本的价格。执行sql的update语句完成删除操作。  
   ```java
 try {
-     conn = JdbcUtils.getConnection();
-     String sql = "pdate books set price='"
+    conn = JdbcUtils.getConnection();
+    String sql = "pdate books set price='"
                + price + "' where "
                + option + "='" + name + "'";
-     pstmt = (PreparedStatement) conn.prepareStatement(sql);
-     i = pstmt.executeUpdate();
-     System.out.println(i + " record has delete.\n");
+    pstmt = (PreparedStatement)conn.prepareStatement(sql);
+    i = pstmt.executeUpdate();
+    System.out.println(i + " record has delete.\n");
 } catch (SQLException e) {
-     e.printStackTrace();
+    e.printStackTrace();
+    System.out.println("Error! Please check your input.");
 } finally {
-     JdbcUtils.free(rs, pstmt, conn);
+    JdbcUtils.free(rs, pstmt, conn);
 }
   ```
-
+<br>5.查询记录并返回一个Book的实例化对象  
+根据输入的书名或ISBN，查询记录并返回一个Book类实例。  
+  ```java
+try {
+    conn = JdbcUtils.getConnection();
+    String sql = "select id, name, isbn, price from books where " + option +"=?";
+    pstmt = (PreparedStatement) conn.prepareStatement(sql);
+    pstmt.setString(1, name);
+    rs = pstmt.executeQuery();
+    while (rs.next()) {
+        book = mappingBook(rs);
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+    System.out.println("Error! Please check your input.");
+} finally {
+    JdbcUtils.free(rs, pstmt, conn);
+}
+  ```
 **<br>4.service包，主要负责业务模块的逻辑应用设计。**  
 创建DBService类，定义BookMangementDao接口。再在配置文件daoconfig.properties中定义该接口的实现类，即`com.bookmanagement.dao.impl.BookManageDaoImpl`类，定义如下：  
   ```
@@ -164,7 +185,7 @@ dao包下的BookManagementTest.java代码为项目的测试入口，实例化ser
   ```java
 BookManagementDao serviceDao = DBService.getInstance().getBookManagementDao();
   ```
-<br>项目启动有文字交互及选项菜单：  
+<br>项目启动有文字交互及选项菜单，封装在`BookManagement.welcome()`函数内：  
   ```java
 System.out.println("Welcome to Book Management System!");
 System.out.println("==================================");
@@ -174,4 +195,12 @@ System.out.println("3.Enter \"Delete\" to delete a book.");
 System.out.println("4.Enter \"Update\" to delete a book.");
 System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
   ```
-<br>接收输入循环判断体，输入对应字段可以执行相关的CRUD指令或者退出，输入错误提示输入有误并重新输入。  
+<br>接收循环输入switch-判断体，输入对应字段可以执行相关的CRUD指令或者退出，输入错误提示输入有误并重新输入，封装在`BookManagement.service()`。  
+
+<br>三、测试脚本  
+在项目根目录下的`initialize.sql`脚本,在进行项目测试前使用命令提示符切换路径到项目根目录下，执行以下语句：  
+  ```SQL
+mysql -u root -p < ~/initialize.sql
+  ```
+(~代表SQL脚本所在目录)  
+若已经存在名为`samp_db`的数据库，则注释掉`initialize.sql`中的第一行`create database samp_db`命令。执行完脚本即完成了建表操作，再运行BookManagementTest的main函数即可进行项目测试。  

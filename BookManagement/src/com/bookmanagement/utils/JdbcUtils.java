@@ -18,7 +18,7 @@ import java.sql.SQLException;
  */
 public class JdbcUtils {
     private static String driver = "com.mysql.jdbc.Driver";
-    private static String url = "jdbc:mysql://localhost:3306/samp_db?useSSL=false&serverTimezone=UTC";
+    private static String url = "jdbc:mysql://localhost:3306/samp_db?useSSL=false&serverTimezone=Asia/Shanghai";
     private static String username = "root";
     private static String password = "";
     Connection conn = null;
