@@ -31,6 +31,7 @@ public class BookManagementTest {
         System.out.println("3.Enter \"Delete\" to delete a book.");
         System.out.println("4.Enter \"Update\" to delete a book.");
         System.out.println("5.Enter \"Find\" to find a book and return a class entity.");
+        System.out.println("6.Enter \"Select\" to select some book and show total price.");
         System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
 
     }
@@ -55,7 +56,7 @@ public class BookManagementTest {
                 || (exit.equals(mainOption))
                 || (quit.equals(mainOption)))) {
 
-            switch (mainOption) {
+            switch (mainOption.toLowerCase()) {
                 case "insert":
                     // 插入一条记录
                     System.out.println("Enter the name of the book to insert.");
@@ -63,7 +64,11 @@ public class BookManagementTest {
                     System.out.println("Enter the isbn of the book to insert.");
                     String isbn = br.readLine();
                     System.out.println("Enter the price of the book to insert.");
-                    Float price = Float.parseFloat(br.readLine());
+                    String price = br.readLine();
+                    while (!checkInputValid(price)) {
+                        System.out.println("Invalid input, you should enter a valid number.");
+                        price = br.readLine();
+                    }
                     Book book = new Book();
                     book.setName(name);
                     book.setISBN(isbn);
@@ -93,7 +98,11 @@ public class BookManagementTest {
                     System.out.println("Enter the name/isbn of the book to update.");
                     name = br.readLine();
                     System.out.println("Enter the price of the book to update.");
-                    price = Float.parseFloat(br.readLine());
+                    price = br.readLine();
+                    while (!checkInputValid(price)) {
+                        System.out.println("Invalid input, you should enter a valid number.");
+                        price = br.readLine();
+                    }
                     serviceDao.update(option, name, price);
                     break;
                 case "find":
@@ -104,7 +113,10 @@ public class BookManagementTest {
                     System.out.println("Enter the name/isbn of the book to find.");
                     name = br.readLine();
                     book = serviceDao.findBook(option, name);
-                    System.out.println(book.getId() + book.getISBN() + book.getName());
+                    System.out.println(book.toString());
+                    break;
+                case "select":
+                    serviceDao.selectBook();
                     break;
                 default:
                     System.out.println("Invalid input, please try again.");
@@ -115,6 +127,24 @@ public class BookManagementTest {
             mainOption = br.readLine();
         }
 
+    }
+
+    private static boolean checkInputValid(String price) {
+        int flag = 1;
+        for(int i = 0;i < price.length();++i) {
+            /* 以小数点结尾*/
+            if(price.charAt(price.length()-1) == '.') {
+                return false;
+            }
+            /* 多个小数点*/
+            if(price.charAt(i) == '.' && flag == 1) {
+                flag = 0;
+            } else if(price.charAt(i) < '0' || price.charAt(i) > '9') {
+                /* 非数字*/
+                return false;
+            }
+        }
+        return true;
     }
 
 }

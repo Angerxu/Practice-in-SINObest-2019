@@ -6,6 +6,10 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import com.bookmanagement.dao.BookManagementDao;
 import com.bookmanagement.domain.Book;
 import com.bookmanagement.utils.JdbcUtils;
@@ -38,7 +42,7 @@ public class BookManageDaoImpl implements BookManagementDao {
                 System.out.println("\n" + s);
             }
 
-            System.out.println("============================");
+            System.out.println("=================================");
             while (rs.next()) {
                 for (int i = 1; i <= col; i++) {
                     System.out.print(rs.getString(i) + "\t");
@@ -50,7 +54,7 @@ public class BookManageDaoImpl implements BookManagementDao {
                 }
                 System.out.println("");
             }
-            System.out.println("============================\n");
+            System.out.println("=================================\n");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error! Please check your input.");
@@ -71,7 +75,7 @@ public class BookManageDaoImpl implements BookManagementDao {
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
             pstmt.setString(1, book.getName());
             pstmt.setString(2, book.getISBN());
-            pstmt.setFloat(3, book.getPrice());
+            pstmt.setString(3, book.getPrice());
             i = pstmt.executeUpdate();
             System.out.println(i + " record has insert.\n");
         } catch (SQLException e) {
@@ -104,7 +108,7 @@ public class BookManageDaoImpl implements BookManagementDao {
     }
 
     @Override
-    public void update(String option, String name, Float price) {
+    public void update(String option, String name, String price) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -114,7 +118,7 @@ public class BookManageDaoImpl implements BookManagementDao {
             String sql = "update books set price=? where "
                     + option + "=?";
             pstmt = (PreparedStatement) conn.prepareStatement(sql);
-            pstmt.setFloat(1, price);
+            pstmt.setString(1, price);
             pstmt.setString(2, name);
             i = pstmt.executeUpdate();
             System.out.println(i + " record has update.\n");
@@ -156,7 +160,69 @@ public class BookManageDaoImpl implements BookManagementDao {
         book.setId(rs.getString("id"));
         book.setName(rs.getString("name"));
         book.setISBN(rs.getString("isbn"));
-        book.setPrice(rs.getFloat("price"));
+        book.setPrice(rs.getString("price"));
         return book;
+    }
+
+    @Override
+    public void selectBook() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please choose select book by name/ISBN.");
+        System.out.println("Enter q to leave.");
+        String option = br.readLine();
+        String name;
+        final String q = "q";
+
+        /*where SQL语句的条件*/
+        String whereSQL = "";
+        /*选择书本的总数*/
+        int sum = 0;
+        /*书本总价*/
+        float totalPrice = 0;
+
+        while (!q.toLowerCase().equals(option)) {
+            System.out.println("Please enter the name/ISBN.");
+            name = br.readLine();
+            /* 使用findBook方法返回book对象并得到总价格*/
+            Book book = findBook(option, name);
+            totalPrice += Float.parseFloat(book.getPrice());
+            /* 拼接where语句*/
+            whereSQL = whereSQL.concat(option +"='"+ name + "' or ");
+            System.out.println(++sum + " book(s) has selected.\n");
+            System.out.println("Please choose select book by name/ISBN.");
+            System.out.println("Enter q to leave.");
+            option = br.readLine();
+        }
+        whereSQL = whereSQL.substring(0, whereSQL.length() - 4);
+        Connection conn =null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            String sql = "select id, name, isbn, price from books where " + whereSQL;
+            pstmt = (PreparedStatement) conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            int col = rs.getMetaData().getColumnCount();
+            System.out.println("These are the books you choose.\n" +
+                    "ID  Name    ISBN            Price\n");
+            while (rs.next()) {
+                for (int i = 1; i <= col; i++) {
+                    System.out.print(rs.getString(i) + "\t");
+                    boolean condition = ((i == 2) || (i == 3))
+                            && (rs.getString(i).length() < 4);
+                    if (condition) {
+                        System.out.print("\t");
+                    }
+                }
+                System.out.println("");
+            }
+            System.out.println("=================================\n");
+            System.out.println("The total price of your books: " + totalPrice);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.free(rs, pstmt, conn);
+        }
     }
 }

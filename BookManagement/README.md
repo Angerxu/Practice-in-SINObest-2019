@@ -34,8 +34,18 @@ public void setid(String id) {
     this.id = id;
 }
   ```  
+<br>重写`toString`方法，返回书本详细信息的组合形式的字符串。  
+  ```java
+public String toString() {
+    String out;
+    return out = "Book ID: " + this.getId()
+                + "\nName: " + this.getName()
+                + "\nISBN: " + this.getISBN()
+                + "\nPrice: " + this.getPrice();
+}
+  ```
 **<br>2.utils包，存放与数据库建立连接工具类。**  
-封装JdbcUtils类，封装建立数据库连接的函数和释放、关闭连接的函数。  
+封装`JdbcUtils`类，封装建立数据库连接的函数和释放、关闭连接的函数。  
 <br>getConnection方法，返回一个与数据库的连接。  
 java.sql下定义的一个接口，与特定数据库的连接（会话）。在连接上下文中执行 SQL 语句并返回结果。定义如下：  
   ```java
@@ -49,8 +59,8 @@ url修改后设置为
 String url = "jdbc:mysql://localhost::3306/samp_db?
 useSSL=false&serverTimezone=UTC"
   ```  
-<br>free方法，释放连接，传入参数为ResultSet rs, PreparedStatement st, Connection conn。  
-为每次数据库操作建立的ResultSet, PreparedStatement, Connection关闭连接，释放资源。  
+<br>free方法，释放连接，传入参数为`ResultSet rs`, `PreparedStatement st`, `Connection conn`。  
+为每次数据库操作建立的`ResultSet`, `PreparedStatement`, `Connection`关闭连接，释放资源。  
 **<br>3.dao包(数据访问对象，存放底层数据库的相关数据的操作接口与函数)**  
 使用JDBC对一个Book类的基本信息进行记录，存储在MySQL数据库中。每个jdbc操作声明对应的Connection, PreparedStatement, ResultSet。  
   ```java
@@ -58,8 +68,8 @@ Connection conn = null;
 PreparedStatement pstmt = null;
 ResultSet rs = null;
   ```  
-<br>当需要进行一个jdbc操作时，需要先调用JdbcUtils的getConnection()方法建立连接。执行完sql语句后再调用JdbcUtils的free方法释放相应连接。    
-dao包中的BookManagementDao接口，定义了图书管理的jdbc函数接口。dao包下impl包的BookManageDaoImpl类实现了接口，实现函数的主要功能包括：记录一个书本的编号，书名，ISBN，价格等信息、删除，修改某个书本的记录、查看书本的记录。    
+<br>当需要进行一个jdbc操作时，需要先调用JdbcUtils的getConnection()方法建立连接。执行完sql语句后再调用JdbcUtils的`free`方法释放相应连接。    
+<br>dao包中的`BookManagementDao`接口，定义了图书管理的jdbc函数接口。dao包下impl包的`BookManageDaoImpl`类实现了接口，实现函数的主要功能包括：记录一个书本的编号，书名，ISBN，价格等信息、删除，修改某个书本的记录、查看书本的记录，返回一个书本的实例化对象，模拟挑选书本加入购物车并返回总价格。    
 <br>1.查询记录  
 定义为`get(String s)`函数，传入的字符串作为MySQL执行select语句的选项。当输入为`*`时返回数据库中所有列。  
 <br>通过PrepareStatement的`executeQuery()`方法，返回得到ResultSet类型。  
@@ -70,7 +80,7 @@ pstmt = (PreparedStatement)conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery();
 
   ```
-再通过`ResultSet的getMetaData().getColumnCount()`方法得到列的总数。rs.next()方法逐列读取每个列中的值。  
+再通过`ResultSet的getMetaData().getColumnCount()`方法得到列的总数。`rs.next()`方法逐列读取每个列中的值。  
   ```java
 while (rs.next()) {
     for (int i = 1; i <= col; i++) {
@@ -84,7 +94,7 @@ while (rs.next()) {
 }
   ```
 <br>2.插入记录  
-定义`insert(Book book)`函数，传入的Book类作为MySQL插入记录，使用PreparedStatement的setString方法设置insert语句的参数。  
+定义`insert(Book book)`函数，传入的Book类作为MySQL插入记录，使用PreparedStatement的`setString`方法设置insert语句的参数。  
   ```java
 conn = JdbcUtils.getConnection();
 String sql = "insert into books (name,isbn,price) values(?,?,?)";
@@ -104,7 +114,7 @@ try {
 }
   ```  
 <br>3.删除记录  
-定义`delete(String option, String name)`函数，传入的两个字符串，option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。执行sql的delete语句完成删除操作。  
+定义`delete(String option, String name)`函数，传入的两个字符串，option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。执行sql的`delete`语句完成删除操作。  
   ```java
 try {
     conn = JdbcUtils.getConnection();
@@ -121,7 +131,7 @@ try {
 }
   ```
 <br>4.更新书本价格  
-定义`update(String option, String name,String price)`函数，传入三个参数：option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。price代表修改书本的价格。执行sql的update语句完成删除操作。  
+定义`update(String option, String name,String price)`函数，传入三个参数：option代表选择通过查询书本的名字或者ISBN进行删除，name则代表具体书本的名字或者ISBN。price代表修改书本的价格。执行sql的`update`语句完成删除操作。  
   ```java
 try {
     conn = JdbcUtils.getConnection();
@@ -157,6 +167,20 @@ try {
     JdbcUtils.free(rs, pstmt, conn);
 }
   ```
+<br>6.挑选书本，显示总价
+根据输入条件的书名/ISBN，通过`findBook`方法返回的`book`实例，得到查询书本的价格，通过`parseFloat`方法转换浮点数累加的到总价。挑选结束后通过`select`配合`where`的查询条件一并显示书本的所有信息，以及总价格。  
+  ```java
+Book book = findBook(option, name);
+totalPrice += Float.parseFloat(book.getPrice());
+/* 拼接where语句*/
+whereSQL = whereSQL.concat(option +"='"+ name 
+            + "' or ");
+  ```
+挑选结束后，使用字符串的`subString`方法去除结尾的`or`。  
+  ```java
+whereSQL = whereSQL.substring(0, whereSQL.length() - 4);
+  ```
+之后再执行sql语句并输出ResultSet及总价。  
 **<br>4.service包，主要负责业务模块的逻辑应用设计。**  
 创建DBService类，定义BookMangementDao接口。再在配置文件daoconfig.properties中定义该接口的实现类，即`com.bookmanagement.dao.impl.BookManageDaoImpl`类，定义如下：  
   ```
@@ -193,9 +217,17 @@ System.out.println("1.Enter \"Get\" to get information from database.");
 System.out.println("2.Enter \"Insert\" to insert a new book.");
 System.out.println("3.Enter \"Delete\" to delete a book.");
 System.out.println("4.Enter \"Update\" to delete a book.");
+System.out.println("5.Enter \"Find\" to find a book and return a class entity.");
+System.out.println("6.Enter \"Select\" to select some book and show total price.");
 System.out.println("Enter \"q\" or \"quit\" or \"exit\" to leave.");
   ```
-<br>接收循环输入switch-判断体，输入对应字段可以执行相关的CRUD指令或者退出，输入错误提示输入有误并重新输入，封装在`BookManagement.service()`。  
+<br>`BookManagement.service()` 接收循环输入switch-判断体，输入对应字段可以执行相关的CRUD指令或者退出，输入价格字段时，输入错误提示输入有误并重新输入，接收的错误类型有：    
+  ```
+1.多个小数点。
+2.无效的小数点（以小数点结尾）
+3.非数字字符（如字母、其他字符等）
+  ```
+封装在`checkInputValid(String price)`函数中。  
 
 <br>三、测试脚本  
 在项目根目录下的`initialize.sql`脚本,在进行项目测试前使用命令提示符切换路径到项目根目录下，执行以下语句：  

@@ -2,6 +2,8 @@ package com.bookmanagement.dao;
 
 import com.bookmanagement.domain.Book;
 
+import java.io.IOException;
+
 /**
  * interface BookManagementDao
  * <p>
@@ -35,7 +37,7 @@ public interface BookManagementDao {
      * @param name 需要更新的书本名称或ISBN
      * @param price 需要更新数据的书本价格
      */
-    public void update(String option, String name, Float price);
+    public void update(String option, String name, String price);
 
     /**
      * getBook 根据书本的ISBN或书名，返回一个书本的对象
@@ -45,4 +47,8 @@ public interface BookManagementDao {
      */
     public Book findBook(String option, String name);
 
+    /**
+     * selectBook 选择一定数目的书本，并返回一个书本信息的列表并计算总价并显示。
+     */
+    public void selectBook() throws IOException;
 }

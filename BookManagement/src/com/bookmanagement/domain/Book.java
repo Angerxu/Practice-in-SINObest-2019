@@ -12,7 +12,7 @@ public class Book {
     private String id;
     private String name;
     private String isbn;
-    private Float price;
+    private String price;
 
 
 
@@ -40,11 +40,24 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(String price) {
         this.price = price;
+    }
+
+    /**
+     * toString，返回书本的基本信息组合形式的字符串。
+     * @return String，一定组合格式的书本信息的字符串
+     */
+    @Override
+    public String toString() {
+        String out;
+        return out = "Book ID: " + this.getId()
+                + "\nName: " + this.getName()
+                + "\nISBN: " + this.getISBN()
+                + "\nPrice: " + this.getPrice();
     }
 }
