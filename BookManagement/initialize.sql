@@ -1,7 +1,8 @@
 # if the database is already exist, please comment the next line.
 create database samp_db;
 use samp_db;
-create table books(
+drop table if exists samp_db;
+create table if not exists books (
 # auto_increment id, identifier of a book
 id int(10) unsigned not null auto_increment primary key,
 # char(30), the name of a book
